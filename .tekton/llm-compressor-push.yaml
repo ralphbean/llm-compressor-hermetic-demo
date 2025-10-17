@@ -3,10 +3,17 @@ kind: PipelineRun
 metadata:
   name: llm-compressor-on-push
   namespace: konflux-ai-sig-tenant
+  labels:
+    appstudio.openshift.io/application: "llm-compressor-demo"
+    appstudio.openshift.io/component: "llm-compressor-demo"
+    pipelines.appstudio.openshift.io/type: "build"
   annotations:
-    pipelinesascode.tekton.dev/on-event: "[push]"
-    pipelinesascode.tekton.dev/on-target-branch: "[main]"
+    build.appstudio.openshift.io/repo: "https://github.com/ralphbean/llm-compressor-hermetic-demo?rev={{revision}}"
+    build.appstudio.redhat.com/commit_sha: "{{revision}}"
+    build.appstudio.redhat.com/target_branch: "{{target_branch}}"
+    pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
+    pipelinesascode.tekton.dev/on-cel-expression: "event == \"push\" && target_branch == \"main\""
 spec:
   pipelineRef:
     name: llm-compressor-pipeline
