@@ -2,15 +2,14 @@ apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   name: llm-compressor-on-push
+  namespace: konflux-ai-sig-tenant
   annotations:
     pipelinesascode.tekton.dev/on-event: "[push]"
     pipelinesascode.tekton.dev/on-target-branch: "[main]"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/task: |
-      https://github.com/ralphbean/build-definitions/raw/llm-compressor/task/llm-compressor/0.1/llm-compressor.yaml
 spec:
   pipelineRef:
-    name: llm-compressor-hermetic-build
+    name: llm-compressor-pipeline
   params:
     - name: git-url
       value: "{{ repo_url }}"
