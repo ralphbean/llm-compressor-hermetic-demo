@@ -26,6 +26,7 @@ spec:
       value: "quay.io/{{ repo_owner }}/{{ repo_name }}:{{ revision }}"
     - name: image-expires-after
       value: "5d"
+  serviceAccountName: build-pipeline-llm-compressor-demo
   workspaces:
     - name: git-basic-auth
       secret:
