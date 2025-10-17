@@ -45,57 +45,6 @@ spec:
         - name: image-url
           value: "$(params.output-image)"
 
-    # Task 2: Clone repository using OCI-TA
-    - name: clone-repository
-      taskRef:
-        resolver: bundles
-        params:
-          - name: bundle
-            value: quay.io/konflux-ci/tekton-catalog/task-git-clone-oci-ta:0.1@sha256:3a920a83fc0135aaae2730fe9d446eb2da2ffc9d63a34bceea04afd24653bdee
-          - name: name
-            value: git-clone-oci-ta
-          - name: kind
-            value: task
-      params:
-        - name: url
-          value: "$(params.git-url)"
-        - name: revision
-          value: "$(params.revision)"
-        - name: ociStorage
-          value: "$(params.output-image).git"
-        - name: ociArtifactExpiresAfter
-          value: "$(params.image-expires-after)"
-      workspaces:
-        - name: basic-auth
-          workspace: git-basic-auth
-      runAfter:
-        - init
-
-    # Task 3: Prefetch dependencies using hermeto x-huggingface with OCI-TA
-    - name: prefetch-dependencies
-      taskRef:
-        resolver: git
-        params:
-          - name: url
-            value: https://github.com/ralphbean/build-definitions
-          - name: revision
-            value: x-huggingface
-          - name: pathInRepo
-            value: task/prefetch-dependencies-oci-ta/0.2/prefetch-dependencies-oci-ta.yaml
-      params:
-        - name: input
-          # https://github.com/hermetoproject/hermeto/pull/1141
-          # https://youtu.be/fY4tXDkUa5I
-          value: "x-huggingface"
-        - name: SOURCE_ARTIFACT
-          value: "$(tasks.clone-repository.results.SOURCE_ARTIFACT)"
-        - name: ociStorage
-          value: "$(params.output-image)"
-        - name: ociArtifactExpiresAfter
-          value: "$(params.image-expires-after)"
-      runAfter:
-        - clone-repository
-
     # Task 4: Run LLM compressor quantization
     - name: llm-compressor
       taskRef:
@@ -109,9 +58,9 @@ spec:
             value: task/llm-compressor-oci-ta/0.1/llm-compressor-oci-ta.yaml
       params:
         - name: SOURCE_ARTIFACT
-          value: "$(tasks.clone-repository.results.SOURCE_ARTIFACT)"
+          value: "oci:quay.io/redhat-user-workloads/konflux-ai-sig-tenant/llm-compressor-demo@sha256:1fe63a2d3aa980c4296dfa85fbdecc1bc479bd00e68362d70c809c11b6cf5d4d"
         - name: CACHI2_ARTIFACT
-          value: "$(tasks.prefetch-dependencies.results.CACHI2_ARTIFACT)"
+          value: "oci:quay.io/redhat-user-workloads/konflux-ai-sig-tenant/llm-compressor-demo@sha256:3a9db4a54f76cb2b1dc314301da9841f72889067306c9f16316e82292e328db4"
         - name: IMAGE
           value: "$(params.output-image)"
         - name: COMPRESSOR_IMAGE
@@ -119,4 +68,4 @@ spec:
         - name: SCRIPT
           value: "compress.py"
       runAfter:
-        - prefetch-dependencies
+        - init
