@@ -71,6 +71,6 @@ spec:
           value: "linux-g64xlarge/amd64"
         - name: BUILDAH_DEVICES
           value:
-            - "nvidia.com/gpu=all"
+            - "/dev/nvidia0"
       runAfter:
         - init
