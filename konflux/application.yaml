@@ -1,0 +1,19 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Application
+metadata:
+  name: llm-compressor-demo
+  annotations:
+    application.thumbnail: "1"
+spec:
+  displayName: LLM Compressor Hermetic Build Demo
+  description: |
+    Demonstration of hermetic LLM quantization using Konflux.
+
+    This application showcases:
+    - Hermetic builds using custom llm-compressor task
+    - x-huggingface support in hermeto for ML model dependency management
+    - One-shot quantization of TinyLlama model using llm-compressor
+
+    Author: Ralph Bean
+  appModelRepository:
+    url: https://github.com/ralphbean/llm-compressor-hermetic-demo

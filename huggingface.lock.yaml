@@ -1,0 +1,28 @@
+# Hermeto lockfile for x-huggingface package manager
+# This file specifies the exact Hugging Face models and datasets to fetch hermetically
+#
+# Both models and datasets are declared in the 'models' list with a 'type' field
+# to distinguish between them. Revision hashes ensure reproducible builds.
+
+metadata:
+  version: "1.0"
+
+models:
+  - repository: "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+    revision: "fe8a4ea1ffedaf415f4da2f062534de366a451e6"
+    type: "model"
+    include_patterns:
+      - "*.safetensors"  # Prefer SafeTensors format for security
+      - "config.json"
+      - "tokenizer*"
+      - "*.json"
+      - "*.txt"
+
+  - repository: "garage-bAInd/Open-Platypus"
+    revision: "37141edbdb7826378cce118c46a109b813e1f038"
+    type: "dataset"
+    include_patterns:
+      - "*.parquet"
+      - "*.json"
+      - "*.jsonl"
+      - "*.arrow"

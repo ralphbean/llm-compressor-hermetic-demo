@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: llm-compressor-on-push
+  annotations:
+    pipelinesascode.tekton.dev/on-event: "[push]"
+    pipelinesascode.tekton.dev/on-target-branch: "[main]"
+    pipelinesascode.tekton.dev/max-keep-runs: "3"
+    pipelinesascode.tekton.dev/task: |
+      https://github.com/ralphbean/build-definitions/raw/llm-compressor/task/llm-compressor/0.1/llm-compressor.yaml
+spec:
+  pipelineRef:
+    name: llm-compressor-hermetic-build
+  params:
+    - name: git-url
+      value: "{{ repo_url }}"
+    - name: revision
+      value: "{{ revision }}"
+    - name: output-image
+      value: "quay.io/{{ repo_owner }}/{{ repo_name }}:{{ revision }}"
+    - name: hermeto-image
+      value: "quay.io/rbean/hermeto:x-huggingface"
+  workspaces:
+    - name: git-basic-auth
+      secret:
+        secretName: "{{ git_auth_secret }}"
