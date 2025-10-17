@@ -145,25 +145,6 @@ models:
       - "*.json"
 ```
 
-## Troubleshooting
-
-### Pipeline fails at prefetch-dependencies
-
-- Verify hermeto image is built and pushed: `podman pull quay.io/rbean/hermeto:x-huggingface`
-- Verify OCI storage is configured correctly in your Konflux instance
-- Check network access to huggingface.co from your cluster
-
-### Pipeline fails at llm-compressor
-
-- Verify llm-compressor task is available in your Konflux instance
-- Check model-opt-cuda image is accessible: `podman pull registry.redhat.io/rhaiis/model-opt-cuda-rhel9:3.2.3-1760571858`
-- Review CPU/memory resource allocations
-
-### SBOM not showing dependencies
-
-- Verify hermeto generated SBOM during prefetch stage
-- Check task logs for hermeto SBOM output
-
 ## References
 
 - [llm-compressor](https://github.com/vllm-project/llm-compressor) - LLM quantization library
