@@ -1,4 +1,4 @@
-FROM registry.redhat.io/rhaiis/model-opt-cuda-rhel9:3.2.3-1760571858
+FROM quay.io/opendatahub/llmcompressor-workbench:main
 
 RUN curl https://raw.githubusercontent.com/ralphbean/llm-compressor/cd93e72d4ccef0aed10e8b16cfd24febe04cb548/src/llmcompressor/args/model_arguments.py -o lib/python3.12/site-packages/llmcompressor/args/model_arguments.py
 RUN curl https://raw.githubusercontent.com/ralphbean/llm-compressor/cd93e72d4ccef0aed10e8b16cfd24febe04cb548/src/llmcompressor/entrypoints/oneshot.py -o lib/python3.12/site-packages/llmcompressor/entrypoints/oneshot.py
