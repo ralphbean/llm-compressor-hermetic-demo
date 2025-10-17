@@ -23,7 +23,7 @@ spec:
     - name: revision
       value: "{{ revision }}"
     - name: output-image
-      value: "quay.io/{{ repo_owner }}/{{ repo_name }}:{{ revision }}"
+      value: "quay.io/redhat-user-workloads/konflux-ai-sig-tenant/llm-compressor-demo:{{ revision }}"
     - name: image-expires-after
       value: "5d"
   taskRunTemplate:
