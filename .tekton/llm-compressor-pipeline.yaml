@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
-  name: llm-compressor-hermetic-build
+  name: llm-compressor-pipeline
   labels:
     app.kubernetes.io/version: "1.0"
   annotations:
