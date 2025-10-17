@@ -114,7 +114,7 @@ spec:
           - name: revision
             value: llm-compressor
           - name: pathInRepo
-            value: task/llm-compressor/0.1/llm-compressor.yaml
+            value: task/llm-compressor-oci-ta/0.1/llm-compressor-oci-ta.yaml
       params:
         - name: IMAGE
           value: "registry.redhat.io/rhaiis/model-opt-cuda-rhel9:3.2.3-1760571858"
