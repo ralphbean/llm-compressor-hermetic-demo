@@ -64,7 +64,7 @@ spec:
         - name: IMAGE
           value: "$(params.output-image)"
         - name: COMPRESSOR_IMAGE
-          value: "registry.redhat.io/rhaiis/model-opt-cuda-rhel9:3.2.3-1760571858"
+          value: "quay.io/rbean/llm-compressor:pr-1902"
         - name: SCRIPT
           value: "compress.py"
         - name: PLATFORM
