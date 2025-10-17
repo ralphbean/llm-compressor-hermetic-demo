@@ -45,7 +45,7 @@ spec:
         - name: image-url
           value: "$(params.output-image)"
 
-    # Task 4: Run LLM compressor quantization
+    # Task 4: Run LLM compressor quantization with GPU on remote host
     - name: llm-compressor
       taskRef:
         resolver: git
@@ -55,7 +55,7 @@ spec:
           - name: revision
             value: llm-compressor
           - name: pathInRepo
-            value: task/llm-compressor-oci-ta/0.1/llm-compressor-oci-ta.yaml
+            value: task/llm-compressor-remote-oci-ta/0.1/llm-compressor-remote-oci-ta.yaml
       params:
         - name: SOURCE_ARTIFACT
           value: "oci:quay.io/redhat-user-workloads/konflux-ai-sig-tenant/llm-compressor-demo@sha256:1fe63a2d3aa980c4296dfa85fbdecc1bc479bd00e68362d70c809c11b6cf5d4d"
@@ -67,5 +67,10 @@ spec:
           value: "registry.redhat.io/rhaiis/model-opt-cuda-rhel9:3.2.3-1760571858"
         - name: SCRIPT
           value: "compress.py"
+        - name: PLATFORM
+          value: "linux/g64xlarge-amd64"
+        - name: BUILDAH_DEVICES
+          value:
+            - "nvidia.com/gpu=all"
       runAfter:
         - init
