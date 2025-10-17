@@ -74,14 +74,14 @@ spec:
     # Task 3: Prefetch dependencies using hermeto x-huggingface with OCI-TA
     - name: prefetch-dependencies
       taskRef:
-        resolver: bundles
+        resolver: git
         params:
-          - name: bundle
-            value: quay.io/konflux-ci/tekton-catalog/task-prefetch-dependencies-oci-ta:0.2@sha256:970285e3b0495961199523b566e0dd92ec2e29bedbcf61d8fc67106b06d0f923
-          - name: name
-            value: prefetch-dependencies-oci-ta
-          - name: kind
-            value: task
+          - name: url
+            value: https://github.com/ralphbean/build-definitions
+          - name: revision
+            value: x-huggingface
+          - name: pathInRepo
+            value: task/prefetch-dependencies-oci-ta/0.2/prefetch-dependencies-oci-ta.yaml
       params:
         - name: input
           value: "huggingface.lock.yaml"
