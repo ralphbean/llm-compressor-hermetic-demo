@@ -68,7 +68,7 @@ spec:
         - name: SCRIPT
           value: "compress.py"
         - name: PLATFORM
-          value: "linux/g64xlarge-amd64"
+          value: "linux-g64xlarge/amd64"
         - name: BUILDAH_DEVICES
           value:
             - "nvidia.com/gpu=all"
