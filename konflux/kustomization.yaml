@@ -6,3 +6,4 @@ namespace: konflux-ai-sig-tenant
 resources:
   - application.yaml
   - component.yaml
+  - imagerepository.yaml

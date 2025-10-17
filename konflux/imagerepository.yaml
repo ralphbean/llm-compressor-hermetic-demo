@@ -1,0 +1,13 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  annotations:
+    image-controller.appstudio.redhat.com/update-component-image: "true"
+  labels:
+    appstudio.redhat.com/application: llm-compressor-demo
+    appstudio.redhat.com/component: llm-compressor-demo
+  name: llm-compressor-demo
+spec:
+  image:
+    name: konflux-ai-sig-tenant/llm-compressor-demo
+    visibility: public

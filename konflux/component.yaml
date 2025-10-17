@@ -1,24 +1,16 @@
 apiVersion: appstudio.redhat.com/v1alpha1
 kind: Component
 metadata:
-  name: llm-compressor-demo-component
+  name: llm-compressor-demo
   annotations:
-    build.appstudio.openshift.io/pipeline: llm-compressor-hermetic-build
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build-oci-ta","bundle":"latest"}'
+    #build.appstudio.openshift.io/pipeline: '{"name":"llm-compressor-hermetic-build","bundle":"latest"}'
     build.appstudio.openshift.io/request: configure-pac
 spec:
   application: llm-compressor-demo
-  componentName: llm-compressor-demo-component
+  componentName: llm-compressor-demo
   source:
     git:
       url: https://github.com/ralphbean/llm-compressor-hermetic-demo
       revision: main
       context: ./
-      dockerfileUrl: ""  # No container build in this demo
-  build:
-    containerImage: ""  # Not building a container image
-  resources:
-    requests:
-      cpu: "2"
-      memory: 8Gi
-      storage: 20Gi  # Large storage for models
-  targetPort: 8080
