@@ -24,8 +24,8 @@ spec:
       value: "{{ revision }}"
     - name: output-image
       value: "quay.io/{{ repo_owner }}/{{ repo_name }}:{{ revision }}"
-    - name: hermeto-image
-      value: "quay.io/rbean/hermeto:x-huggingface"
+    - name: image-expires-after
+      value: "5d"
   workspaces:
     - name: git-basic-auth
       secret:
