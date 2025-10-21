@@ -29,6 +29,20 @@ spec:
       description: Git credentials (optional)
       optional: true
 
+  results:
+    - name: IMAGE_URL
+      description: Repository where the compressed model artifact was pushed
+      value: $(tasks.llm-compressor.results.IMAGE_URL)
+    - name: IMAGE_DIGEST
+      description: Digest of the compressed model artifact just pushed
+      value: $(tasks.llm-compressor.results.IMAGE_DIGEST)
+    - name: CHAINS-GIT_URL
+      description: The precise URL that was fetched by the clone task
+      value: $(tasks.clone-repository.results.url)
+    - name: CHAINS-GIT_COMMIT
+      description: The precise commit SHA that was fetched by the clone task
+      value: $(tasks.clone-repository.results.commit)
+
   tasks:
     # Task 1: Initialize with OCI-TA
     - name: init
