@@ -62,7 +62,7 @@ def main():
         num_calibration_samples=args.num_calibration_samples,
     )
 
-    print(f"\nQuantization complete! Model saved to {args.output_dir}")
+    print(f"\nQuantization complete! Model saved to {os.path.abspath(args.output_dir)}")
 
     # Print output directory contents
     print("\nOutput files:")
@@ -72,7 +72,7 @@ def main():
         print(f'{indent}{os.path.basename(root)}/')
         subindent = ' ' * 2 * (level + 1)
         for file in files[:10]:  # Limit to first 10 files
-            print(f'{subindent}{file}')
+            print(f'{subindent}{os.path.abspath(os.path.join(root, file))}')
         if len(files) > 10:
             print(f'{subindent}... and {len(files) - 10} more files')
 
