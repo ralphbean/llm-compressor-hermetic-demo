@@ -123,5 +123,9 @@ spec:
         - name: BUILDAH_DEVICES
           value:
             - "/dev/nvidia0"
+        - name: SCRIPT_ARGS
+          value:
+            - "--output-dir"
+            - "/var/workdir/output"
       runAfter:
         - prefetch-dependencies
