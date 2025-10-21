@@ -120,6 +120,10 @@ spec:
           value: "compress.py"
         - name: PLATFORM
           value: "linux-g64xlarge/amd64"
+        - name: GIT_URL
+          value: "$(params.git-url)"
+        - name: GIT_COMMIT
+          value: "$(params.revision)"
         - name: BUILDAH_DEVICES
           value:
             - "/dev/nvidia0"
