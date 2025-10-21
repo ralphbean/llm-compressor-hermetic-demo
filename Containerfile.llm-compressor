@@ -5,5 +5,6 @@ RUN curl https://raw.githubusercontent.com/ralphbean/llm-compressor/cd93e72d4cce
 RUN curl https://raw.githubusercontent.com/ralphbean/llm-compressor/cd93e72d4ccef0aed10e8b16cfd24febe04cb548/src/llmcompressor/entrypoints/utils.py -o lib/python3.12/site-packages/llmcompressor/entrypoints/utils.py
 RUN curl https://raw.githubusercontent.com/ralphbean/llm-compressor/cd93e72d4ccef0aed10e8b16cfd24febe04cb548/src/llmcompressor/pytorch/model_load/helpers.py -o lib/python3.12/site-packages/llmcompressor/pytorch/model_load/helpers.py
 RUN curl https://raw.githubusercontent.com/ralphbean/llm-compressor/cd93e72d4ccef0aed10e8b16cfd24febe04cb548/src/llmcompressor/transformers/finetune/data/base.py -o lib/python3.12/site-packages/llmcompressor/transformers/finetune/data/base.py
+RUN curl https://raw.githubusercontent.com/ralphbean/llm-compressor/2421e18103bbe4bbf273701127d366993796d5bd/src/llmcompressor/transformers/utils/helpers.py -o lib/python3.12/site-packages/llmcompressor/transformers/utils/helpers.py
 
 
