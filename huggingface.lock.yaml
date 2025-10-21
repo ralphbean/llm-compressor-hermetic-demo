@@ -10,6 +10,7 @@ metadata:
 models:
   - repository: "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
     revision: "fe8a4ea1ffedaf415f4da2f062534de366a451e6"
+    ref: "main"
     type: "model"
     include_patterns:
       - "*.safetensors"  # Prefer SafeTensors format for security
@@ -21,8 +22,3 @@ models:
   - repository: "garage-bAInd/Open-Platypus"
     revision: "37141edbdb7826378cce118c46a109b813e1f038"
     type: "dataset"
-    include_patterns:
-      - "*.parquet"
-      - "*.json"
-      - "*.jsonl"
-      - "*.arrow"
