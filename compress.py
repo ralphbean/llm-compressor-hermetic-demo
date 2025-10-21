@@ -24,7 +24,7 @@ def main():
     parser.add_argument(
         "--output-dir",
         type=str,
-        default="TinyLlama-1.1B-Chat-v1.0-INT8",
+        default="output/TinyLlama-1.1B-Chat-v1.0-INT8",
         help="Output directory for quantized model"
     )
     parser.add_argument(
