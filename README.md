@@ -83,6 +83,50 @@ models:
       - "*.json"
 ```
 
+### llm-compressor-remote-oci-ta Task
+
+Custom Tekton task that executes LLM compression scripts in a hermetic, GPU-enabled environment using OCI Trusted Artifacts (OCI-TA). Key features:
+
+- **Remote GPU execution** - Runs compression workloads on remote hosts with GPU access via the Konflux multi-platform controller
+- **Hermetic builds** - Optional network isolation with hermeto-prefetched dependencies
+- **SBOM generation** - Includes dependency metadata. Higher accuracy if a hermetic build is used.
+- **OCI artifact output** - Packages compressed models as OCI artifacts
+- **Flexible scripts** - Supports both Python and shell compression scripts
+- **Script arguments** - Pass custom arguments to compression scripts via `SCRIPT_ARGS` parameter
+
+The task uses buildah to run the compression script inside a container with:
+- GPU device passthrough (NVIDIA, AMD, Intel)
+- Mounted source code and dependencies
+- Configurable output directory
+- Environment variable injection
+
+Example usage in the pipeline:
+
+```yaml
+- name: llm-compressor
+  taskRef:
+    resolver: git
+    params:
+      - name: url
+        value: https://github.com/ralphbean/build-definitions  # TODO Update this to a more proper repo.
+      - name: revision
+        value: llm-compressor
+      - name: pathInRepo
+        value: task/llm-compressor-remote-oci-ta/0.1/llm-compressor-remote-oci-ta.yaml
+  params:
+    - name: SCRIPT
+      value: "compress.py"
+    - name: SCRIPT_ARGS
+      value:
+        - "--output-dir"
+        - "/var/workdir/output"
+    - name: PLATFORM
+      value: "linux-g64xlarge/amd64"
+    - name: BUILDAH_DEVICES
+      value:
+        - "/dev/nvidia0"
+```
+
 ## References
 
 - [llm-compressor](https://github.com/vllm-project/llm-compressor) - LLM quantization library
