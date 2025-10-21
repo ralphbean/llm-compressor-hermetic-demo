@@ -1,20 +1,18 @@
 # LLM Compressor Hermetic Build Demo
 
-This repository demonstrates a hermetic build pipeline for LLM quantization using Konflux, showcasing:
+Using LLM Compressor in a hermetic build in Konflux, showcasing:
 
-- **Custom llm-compressor task** - A new Tekton task for running LLM quantization
-- **x-huggingface support in hermeto** - Hermetic dependency fetching for Hugging Face models and datasets
+- An offline hermetic run of [llm-compressor](https://github.com/vllm-project/llm-compressor) to produce a quantized model on a GPU capable node in Konflux.
+- An [AI SBOM](https://github.com/aibom-squad/SBOM-for-AI-Use-Cases), enabled by the offline hermetic build. (Learn about the hermeto strategy from [Adam Cmiel at Open Source Summit 2025](https://youtu.be/cwmdQI6uWWA)).
+- [Highly-detailed SLSA build provenance attestations](https://developers.redhat.com/articles/2025/05/15/how-we-use-software-provenance-red-hat#attestation_example), created with the neutral observer pattern that Konflux inherits from Tekton.
 
-**One-shot quantization** is used - compressing TinyLlama-1.1B-Chat-v1.0 using SmoothQuant + GPTQ as a kind of "hello world".
+Simple **one-shot quantization** is used, compressing TinyLlama-1.1B-Chat-v1.0 using SmoothQuant + GPTQ as a kind of "hello world".
 
-## New Things
+This demo was enabled by:
 
-The following pieces were created to support this demo:
-
-1. **llm-compressor task** - Custom Tekton task from [build-definitions/llm-compressor](https://github.com/ralphbean/build-definitions/tree/llm-compressor)
-2. **hermeto x-huggingface** - ML dependency management from [hermeto PR #1141](https://github.com/hermetoproject/hermeto/pull/1141).
-
-See also an earlier demo of just the hermeto huggingface support (2) at [youtu.be/fY4tXDkUa5I](https://youtu.be/fY4tXDkUa5I).
+- **llm-compressor patches** - A few patches were needed in llm-compressor to [support HF env vars](https://github.com/vllm-project/llm-compressor/pull/1902) and to [suppress an eager network request](https://github.com/vllm-project/llm-compressor/pull/1954).
+- **new llm-compressor task** - A new Tekton task for running LLM quantization from [build-definitions/llm-compressor](https://github.com/ralphbean/build-definitions/tree/llm-compressor)
+- **new x-huggingface support in hermeto** - Hermetic dependency fetching for Hugging Face models and datasets from [hermeto PR #1141](https://github.com/hermetoproject/hermeto/pull/1141) (see standalone demo at [youtu.be/fY4tXDkUa5I](https://youtu.be/fY4tXDkUa5I)).
 
 ## Repository Structure
 
@@ -83,6 +81,8 @@ models:
       - "*.json"
 ```
 
+**NOTE**: An alternative approach should be considered in [dvc](https://dvc.org/), see [hermetoproject/hermeto!1151](https://github.com/hermetoproject/hermeto/pull/1151).
+
 ### llm-compressor-remote-oci-ta Task
 
 Custom Tekton task that executes LLM compression scripts in a hermetic, GPU-enabled environment using OCI Trusted Artifacts (OCI-TA). Key features:
@@ -126,12 +126,6 @@ Example usage in the pipeline:
       value:
         - "/dev/nvidia0"
 ```
-
-## References
-
-- [llm-compressor](https://github.com/vllm-project/llm-compressor) - LLM quantization library
-- [hermeto](https://github.com/hermetoproject/hermeto) - Hermetic dependency management
-- [build-definitions](https://github.com/konflux-ci/build-definitions) - Konflux task catalog
 
 ## Author
 
