@@ -2,17 +2,17 @@
 
 Using LLM Compressor in a hermetic build in Konflux, showcasing:
 
-- An offline hermetic run of [llm-compressor](https://github.com/vllm-project/llm-compressor) to produce a quantized model on a GPU capable node in Konflux.
-- An [AI SBOM](https://github.com/aibom-squad/SBOM-for-AI-Use-Cases), enabled by the offline hermetic build. (Learn about the hermeto strategy from [Adam Cmiel at Open Source Summit 2025](https://youtu.be/cwmdQI6uWWA)).
-- [Highly-detailed SLSA build provenance attestations](https://developers.redhat.com/articles/2025/05/15/how-we-use-software-provenance-red-hat#attestation_example), created with the neutral observer pattern that Konflux inherits from Tekton.
+- **A hermetic offline run of [llm-compressor](https://github.com/vllm-project/llm-compressor)** to produce a quantized model on a GPU node in Konflux.
+- **An [AI SBOM](https://github.com/aibom-squad/SBOM-for-AI-Use-Cases)**, enabled by the offline build. (Learn about hermeto strategy from [Adam Cmiel at OSS NA 2025](https://youtu.be/cwmdQI6uWWA)).
+- **SLSA build provenance attestations**, with a [high degree of detail-detailed SLSA build provenance attestations](https://developers.redhat.com/articles/2025/05/15/how-we-use-software-provenance-red-hat#attestation_example), created with the neutral observer pattern that Konflux inherits from Tekton.
 
-Simple **one-shot quantization** is used, compressing TinyLlama-1.1B-Chat-v1.0 using SmoothQuant + GPTQ as a kind of "hello world".
+Simple one-shot quantization is used, compressing TinyLlama-1.1B-Chat-v1.0 using SmoothQuant + GPTQ as a kind of "hello world".
 
 This demo was enabled by:
 
 - **llm-compressor patches** - A few patches were needed in llm-compressor to [support HF env vars](https://github.com/vllm-project/llm-compressor/pull/1902) and to [suppress an eager network request](https://github.com/vllm-project/llm-compressor/pull/1954).
-- **new llm-compressor task** - A new Tekton task for running LLM quantization from [build-definitions/llm-compressor](https://github.com/ralphbean/build-definitions/tree/llm-compressor)
-- **new x-huggingface support in hermeto** - Hermetic dependency fetching for Hugging Face models and datasets from [hermeto PR #1141](https://github.com/hermetoproject/hermeto/pull/1141) (see standalone demo at [youtu.be/fY4tXDkUa5I](https://youtu.be/fY4tXDkUa5I)).
+- **a new llm-compressor task** - A new Tekton task for running LLM quantization from [build-definitions/llm-compressor](https://github.com/ralphbean/build-definitions/tree/llm-compressor)
+- **a new huggingface backend in hermeto** - Hermetic dependency fetching for Hugging Face models and datasets from [hermeto PR #1141](https://github.com/hermetoproject/hermeto/pull/1141) (see standalone demo at [youtu.be/fY4tXDkUa5I](https://youtu.be/fY4tXDkUa5I)).
 
 ## Repository Structure
 
