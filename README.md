@@ -4,7 +4,7 @@ Using LLM Compressor in a hermetic build in Konflux, showcasing:
 
 - **A hermetic offline run of [llm-compressor](https://github.com/vllm-project/llm-compressor)** to produce a quantized model on a GPU node in Konflux.
 - **An [AI SBOM](https://github.com/aibom-squad/SBOM-for-AI-Use-Cases)**, enabled by the offline build. (Learn the hermeto strategy from [Adam Cmiel at OSS NA](https://youtu.be/cwmdQI6uWWA)).
-- **SLSA build provenance attestations**, with a [high degree of detail-detailed SLSA build provenance attestations](https://developers.redhat.com/articles/2025/05/15/how-we-use-software-provenance-red-hat#attestation_example), created with the neutral observer pattern that Konflux inherits from Tekton.
+- **SLSA build provenance attestations**, with a [high degree of detail](https://developers.redhat.com/articles/2025/05/15/how-we-use-software-provenance-red-hat#attestation_example), created with the neutral observer pattern that Konflux inherits from Tekton.
 
 Simple one-shot quantization is used, compressing `TinyLlama-1.1B-Chat-v1.0` using `SmoothQuant` + `GPTQ` as a kind of "hello world".
 
