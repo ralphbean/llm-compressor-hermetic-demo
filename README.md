@@ -1,5 +1,7 @@
 # LLM Compressor Hermetic Build Demo
 
+Watch the [demo on youtube](https://www.youtube.com/watch?v=T-5rMOKZD4s).
+
 Using LLM Compressor in a hermetic build in Konflux, showcasing:
 
 - **A hermetic offline run of [llm-compressor](https://github.com/vllm-project/llm-compressor)** to produce a quantized model on a GPU node in Konflux.
