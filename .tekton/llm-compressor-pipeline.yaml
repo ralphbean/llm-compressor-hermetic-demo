@@ -145,5 +145,7 @@ spec:
           value:
             - "--output-dir"
             - "/var/workdir/output"
+        - name: SBOM_TYPE
+          value: cyclonedx
       runAfter:
         - prefetch-dependencies
