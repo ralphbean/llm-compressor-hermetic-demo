@@ -1,0 +1,34 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: llm-compressor-on-pull
+  namespace: konflux-ai-sig-tenant
+  labels:
+    appstudio.openshift.io/application: "llm-compressor-demo"
+    appstudio.openshift.io/component: "llm-compressor-demo"
+    pipelines.appstudio.openshift.io/type: "build"
+  annotations:
+    build.appstudio.openshift.io/repo: "https://github.com/ralphbean/llm-compressor-hermetic-demo?rev={{revision}}"
+    build.appstudio.redhat.com/commit_sha: '{{revision}}'
+    build.appstudio.redhat.com/pull_request_number: '{{pull_request_number}}'
+    build.appstudio.redhat.com/target_branch: '{{target_branch}}'
+    pipelinesascode.tekton.dev/max-keep-runs: "3"
+    pipelinesascode.tekton.dev/on-cel-expression: "event == \"pull_request\" && target_branch == \"main\""
+spec:
+  pipelineRef:
+    name: llm-compressor-pipeline
+  params:
+    - name: git-url
+      value: "{{ repo_url }}"
+    - name: revision
+      value: "{{ revision }}"
+    - name: output-image
+      value: "quay.io/redhat-user-workloads/konflux-ai-sig-tenant/llm-compressor-demo:pr-{{ revision }}"
+    #- name: image-expires-after
+    #  value: "5d"
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-llm-compressor-demo
+  workspaces:
+    - name: git-basic-auth
+      secret:
+        secretName: "{{ git_auth_secret }}"

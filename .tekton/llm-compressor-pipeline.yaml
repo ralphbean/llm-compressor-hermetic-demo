@@ -23,6 +23,9 @@ spec:
       type: string
       description: Image expiration time
       default: "5d"
+    - name: sbom-type
+      type: string
+      default: "cyclonedx"
 
     - name: enable-cache-proxy
       default: 'false'
@@ -113,6 +116,8 @@ spec:
           value: "$(params.output-image)"
         - name: ociArtifactExpiresAfter
           value: "$(params.image-expires-after)"
+        - name: sbom-type
+          value: "$(params.sbom-type)"
       runAfter:
         - clone-repository
 
@@ -151,5 +156,7 @@ spec:
           value:
             - "--output-dir"
             - "/var/workdir/output"
+        - name: SBOM_TYPE
+          value: "$(params.sbom-type)"
       runAfter:
         - prefetch-dependencies
