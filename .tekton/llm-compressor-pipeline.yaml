@@ -24,6 +24,10 @@ spec:
       description: Image expiration time
       default: "5d"
 
+    - name: enable-cache-proxy
+      default: 'false'
+      description: Enable cache proxy configuration
+      type: string
   workspaces:
     - name: git-basic-auth
       description: Git credentials (optional)
@@ -50,7 +54,7 @@ spec:
         resolver: bundles
         params:
           - name: bundle
-            value: quay.io/konflux-ci/tekton-catalog/task-init:0.2@sha256:3ca52e1d8885fc229bd9067275f44d5b21a9a609981d0324b525ddeca909bf10
+            value: quay.io/konflux-ci/tekton-catalog/task-init:0.2@sha256:75b88ee5e134a22ee35eb974808dfe6a63693115fa445208a9060a7175b448cf
           - name: name
             value: init
           - name: kind
@@ -60,12 +64,14 @@ spec:
           value: "$(params.output-image)"
 
     # Task 2: Clone repository using OCI-TA
+        - name: enable-cache-proxy
+          value: $(params.enable-cache-proxy)
     - name: clone-repository
       taskRef:
         resolver: bundles
         params:
           - name: bundle
-            value: quay.io/konflux-ci/tekton-catalog/task-git-clone-oci-ta:0.1@sha256:bb2f8f1edec47faa08c1929f2ffc6748f3a96af9644e6c40000081c6ff3ec894
+            value: quay.io/konflux-ci/tekton-catalog/task-git-clone-oci-ta:0.1@sha256:0a89e1a6304076525e9766f63a4cd006763d21d5aca6863281fc427537a23c6f
           - name: name
             value: git-clone-oci-ta
           - name: kind
