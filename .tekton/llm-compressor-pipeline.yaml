@@ -23,6 +23,9 @@ spec:
       type: string
       description: Image expiration time
       default: "5d"
+    - name: sbom-type
+      type: string
+      default: "cyclonedx"
 
   workspaces:
     - name: git-basic-auth
@@ -107,6 +110,8 @@ spec:
           value: "$(params.output-image)"
         - name: ociArtifactExpiresAfter
           value: "$(params.image-expires-after)"
+        - name: sbom-type
+          value: "$(params.sbom-type)"
       runAfter:
         - clone-repository
 
@@ -146,6 +151,6 @@ spec:
             - "--output-dir"
             - "/var/workdir/output"
         - name: SBOM_TYPE
-          value: cyclonedx
+          value: "$(params.sbom-type)"
       runAfter:
         - prefetch-dependencies
