@@ -24,8 +24,8 @@ spec:
       value: "{{ revision }}"
     - name: output-image
       value: "quay.io/redhat-user-workloads/konflux-ai-sig-tenant/llm-compressor-demo:pr-{{ revision }}"
-    - name: image-expires-after
-      value: "5d"
+    #- name: image-expires-after
+    #  value: "5d"
   taskRunTemplate:
     serviceAccountName: build-pipeline-llm-compressor-demo
   workspaces:
